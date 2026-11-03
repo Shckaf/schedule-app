@@ -27,13 +27,13 @@ android.archs = arm64-v8a
 android.accept_sdk_license = True
 android.debug_artifact = apk
 
-# Проверенная стабильная версия python-for-android (master сейчас ломает сборку Kivy)
-p4a.branch = v2024.01.21
+# python-for-android клонируется и дополняется в workflow (см. build.yml):
+# в манифест добавляются receiver и activity виджета
+p4a.source_dir = ~/p4a-src
 
-# Виджет: Java-классы, ресурсы и объявления в манифесте
+# Виджет: Java-классы и ресурсы
 android.add_src = java
 android.add_resources = res/layout/widget_layout.xml:layout/widget_layout.xml, res/drawable/widget_bg.xml:drawable/widget_bg.xml, res/xml/schedule_widget_info.xml:xml/schedule_widget_info.xml
-android.extra_manifest_application_arguments = extra_manifest_application.xml
 
 [buildozer]
 log_level = 2
