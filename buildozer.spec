@@ -23,9 +23,12 @@ fullscreen = 0
 android.api = 33
 android.minapi = 24
 android.ndk = 25b
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a
 android.accept_sdk_license = True
 android.debug_artifact = apk
+
+# Проверенная стабильная версия python-for-android (master сейчас ломает сборку Kivy)
+p4a.branch = v2024.01.21
 
 # Виджет: Java-классы, ресурсы и объявления в манифесте
 android.add_src = java
