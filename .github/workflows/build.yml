@@ -34,6 +34,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade buildozer "cython<3" virtualenv setuptools
 
+      - name: Prepare patched python-for-android
+        run: |
+          git clone --depth 1 --branch v2024.01.21 https://github.com/kivy/python-for-android.git ~/p4a-src
+          python3 - <<'PY'
+          import os, pathlib
+          tpl = pathlib.Path(os.path.expanduser(
+              "~/p4a-src/pythonforandroid/bootstraps/sdl2/build/templates/AndroidManifest.tmpl.xml"))
+          text = tpl.read_text(encoding="utf-8")
+          extra = pathlib.Path("extra_manifest_application.xml").read_text(encoding="utf-8")
+          marker = "{% for l in args.android_used_libs %}"
+          assert marker in text, "marker not found in manifest template"
+          tpl.write_text(text.replace(marker, extra + "\n        " + marker, 1), encoding="utf-8")
+          print("manifest template patched")
+          PY
+
       - uses: actions/cache@v4
         with:
           path: |
@@ -50,9 +65,9 @@ jobs:
       - name: Show error summary
         if: failure()
         run: |
-          grep -n -i -E "error|failed|exception|not found" build.log | tail -40
+          grep -n -i -E "error|failed|exception|not found" build.log | grep -v -E "Compiling|adding:|copy \./|running zip" | tail -40
           echo "=========== TAIL ==========="
-          tail -60 build.log
+          tail -60 build.log | cut -c1-400
 
       - name: Upload build log
         if: always()
