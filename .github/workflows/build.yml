@@ -5,6 +5,9 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -74,11 +77,3 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-log
-          path: build.log
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: schedule-apk
-          path: bin/*.apk
-          if-no-files-found: error
