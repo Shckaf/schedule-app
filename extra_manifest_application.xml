@@ -1,0 +1,22 @@
+<receiver
+    android:name="org.schedule.scheduleapp.ScheduleWidgetProvider"
+    android:label="Расписание"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        <action android:name="android.intent.action.TIME_SET" />
+        <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+    </intent-filter>
+    <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/schedule_widget_info" />
+</receiver>
+
+<activity
+    android:name="org.schedule.scheduleapp.WidgetConfigActivity"
+    android:exported="true"
+    android:theme="@android:style/Theme.DeviceDefault.Dialog">
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+    </intent-filter>
+</activity>

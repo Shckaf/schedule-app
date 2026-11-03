@@ -1,0 +1,5 @@
+# Для запуска на компьютере (python main.py) и генерации Excel (python generate_excel.py).
+# В APK попадает только то, что указано в requirements внутри buildozer.spec.
+kivy==2.3.0
+openpyxl>=3.1
+pandas>=2.0
